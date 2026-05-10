@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bankai.se — Clean Architecture API</title>
+  <meta name="description" content="Bankai.se — A production-grade ASP.NET Core Web API built with Clean Architecture, CQRS, MediatR, JWT and RBAC." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="bankai-logo.png" alt="Bankai Logo" class="nav-logo-img" />
+        <span class="nav-brand">bankai<span class="accent">.se</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#layers">Layers</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#vg">VG Features</a></li>
+        <li><a href="#branches">Branches</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+    <div class="hero-content">
+      <div class="hero-badge">ASP.NET Core · Clean Architecture · VG Level</div>
+      <h1>Bankai<span class="accent">.se</span></h1>
+      <p class="hero-subtitle">
+        A production-grade Web API built with <strong>Clean Architecture</strong>,
+        CQRS, MediatR, FluentValidation, AutoMapper, JWT Auth and Role-Based Access Control.
+      </p>
+      <div class="hero-buttons">
+        <a href="#layers" class="btn btn-primary" id="explore-btn">Explore Architecture</a>
+        <a href="#api" class="btn btn-outline" id="api-btn">View API Endpoints</a>
+      </div>
+      <div class="hero-stack">
+        <span class="stack-tag">C# 12</span>
+        <span class="stack-tag">.NET 8</span>
+        <span class="stack-tag">EF Core</span>
+        <span class="stack-tag">MediatR</span>
+        <span class="stack-tag">FluentValidation</span>
+        <span class="stack-tag">AutoMapper</span>
+        <span class="stack-tag">JWT</span>
+        <span class="stack-tag">SQLite</span>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- ── ARCHITECTURE DIAGRAM ── -->
+  <section id="architecture">
+    <div class="container">
+      <div class="section-label">Core Principle</div>
+      <h2>Clean Architecture</h2>
+      <p class="section-desc">Dependency rule: outer layers depend on inner layers — never the other way around.</p>
+
+      <div class="arch-diagram">
+        <div class="arch-ring ring-infra">
+          <span class="ring-label">Infrastructure</span>
+          <div class="arch-ring ring-api">
+            <span class="ring-label">API / Presentation</span>
+            <div class="arch-ring ring-app">
+              <span class="ring-label">Application</span>
+              <div class="arch-ring ring-domain">
+                <span class="ring-label-center">Domain</span>
+                <p class="ring-sublabel">Entities · Interfaces · Enums</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-principles">
+        <div class="principle-card">
+          <div class="principle-icon">🧩</div>
+          <h3>Independent of Frameworks</h3>
+          <p>Domain layer has zero references to ASP.NET Core, EF Core, or any library.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">🧪</div>
+          <h3>Testable</h3>
+          <p>Every handler is isolated and can be unit tested by mocking IRepository.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">🔄</div>
+          <h3>Independent of UI</h3>
+          <p>The Application layer works equally with REST, gRPC, or any delivery mechanism.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">🗄️</div>
+          <h3>Independent of Database</h3>
+          <p>Swap SQLite for PostgreSQL/SQL Server by changing one line in Program.cs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LAYERS ── -->
+  <section id="layers">
+    <div class="container">
+      <div class="section-label">Project Structure</div>
+      <h2>The 4 Layers</h2>
+      <p class="section-desc">Each layer is a separate C# project — enforcing clean dependency rules at compile time.</p>
+
+      <div class="layers-grid">
+
+        <div class="layer-card domain-card" id="layer-domain">
+          <div class="layer-header">
+            <span class="layer-badge">Inner Core</span>
+            <h3>Bankai.Domain</h3>
+          </div>
+          <p class="layer-desc">Pure C# — no NuGet packages. This is the heart of the application.</p>
+          <ul class="layer-files">
+            <li><span class="file-icon">📄</span> Entities/Product.cs</li>
+            <li><span class="file-icon">📄</span> Entities/Category.cs</li>
+            <li><span class="file-icon">📄</span> Entities/User.cs</li>
+            <li><span class="file-icon">📄</span> Entities/Order.cs</li>
+            <li><span class="file-icon">🔌</span> Interfaces/IRepository.cs</li>
+            <li><span class="file-icon">🔌</span> Interfaces/IProductRepository.cs</li>
+            <li><span class="file-icon">🏷️</span> Enums/UserRole.cs</li>
+          </ul>
+          <div class="layer-deps">No dependencies ✓</div>
+        </div>
+
+        <div class="layer-card app-card" id="layer-app">
+          <div class="layer-header">
+            <span class="layer-badge">Orchestration</span>
+            <h3>Bankai.Application</h3>
+          </div>
+          <p class="layer-desc">CQRS, MediatR handlers, validators and pipeline behaviors.</p>
+          <ul class="layer-files">
+            <li><span class="file-icon">⚡</span> Commands/CreateProductCommand.cs</li>
+            <li><span class="file-icon">⚡</span> Commands/UpdateProductCommand.cs</li>
+            <li><span class="file-icon">⚡</span> Commands/DeleteProductCommand.cs</li>
+            <li><span class="file-icon">🔍</span> Queries/GetAllProductsQuery.cs</li>
+            <li><span class="file-icon">🔍</span> Queries/GetProductByIdQuery.cs</li>
+            <li><span class="file-icon">⚙️</span> Handlers/ (5 handlers)</li>
+            <li><span class="file-icon">✅</span> Validators/CreateProductValidator.cs</li>
+            <li><span class="file-icon">🔗</span> Behaviors/ValidationBehavior.cs</li>
+            <li><span class="file-icon">🔗</span> Behaviors/LoggingBehavior.cs</li>
+            <li><span class="file-icon">📦</span> DTOs/ProductDto.cs · CategoryDto.cs</li>
+            <li><span class="file-icon">🗺️</span> Mapping/MappingProfile.cs</li>
+          </ul>
+          <div class="layer-deps">Depends on: Domain</div>
+        </div>
+
+        <div class="layer-card infra-card" id="layer-infra">
+          <div class="layer-header">
+            <span class="layer-badge">Persistence</span>
+            <h3>Bankai.Infrastructure</h3>
+          </div>
+          <p class="layer-desc">EF Core, database context, and concrete repository implementations.</p>
+          <ul class="layer-files">
+            <li><span class="file-icon">🗄️</span> Data/AppDbContext.cs</li>
+            <li><span class="file-icon">📦</span> Repositories/Repository.cs</li>
+            <li><span class="file-icon">📦</span> Repositories/ProductRepository.cs</li>
+            <li><span class="file-icon">📦</span> Repositories/CategoryRepository.cs</li>
+            <li><span class="file-icon">📁</span> Migrations/ (auto-generated)</li>
+          </ul>
+          <div class="layer-deps">Depends on: Domain · EF Core</div>
+        </div>
+
+        <div class="layer-card api-card" id="layer-api">
+          <div class="layer-header">
+            <span class="layer-badge">Entry Point</span>
+            <h3>Bankai.API</h3>
+          </div>
+          <p class="layer-desc">ASP.NET Core controllers, DI setup, JWT middleware and Swagger.</p>
+          <ul class="layer-files">
+            <li><span class="file-icon">🎮</span> Controllers/ProductsController.cs</li>
+            <li><span class="file-icon">🎮</span> Controllers/CategoriesController.cs</li>
+            <li><span class="file-icon">🔐</span> Controllers/AuthController.cs</li>
+            <li><span class="file-icon">🚀</span> Program.cs</li>
+            <li><span class="file-icon">⚙️</span> appsettings.json</li>
+          </ul>
+          <div class="layer-deps">Depends on: Application · Infrastructure</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── API ENDPOINTS ── -->
+  <section id="api">
+    <div class="container">
+      <div class="section-label">REST API</div>
+      <h2>Full CRUD Endpoints</h2>
+      <p class="section-desc">All write operations protected by JWT + RBAC. Reads are public.</p>
+
+      <div class="endpoints-table">
+        <div class="endpoint-row header-row">
+          <div>Method</div><div>Endpoint</div><div>Handler</div><div>Auth</div>
+        </div>
+        <div class="endpoint-row">
+          <span class="method get">GET</span>
+          <code>/api/products</code>
+          <span>GetAllProductsQuery</span>
+          <span class="auth-public">Public</span>
+        </div>
+        <div class="endpoint-row">
+          <span class="method get">GET</span>
+          <code>/api/products/{id}</code>
+          <span>GetProductByIdQuery</span>
+          <span class="auth-public">Public</span>
+        </div>
+        <div class="endpoint-row">
+          <span class="method post">POST</span>
+          <code>/api/products</code>
+          <span>CreateProductCommand</span>
+          <span class="auth-admin">Admin</span>
+        </div>
+        <div class="endpoint-row">
+          <span class="method put">PUT</span>
+          <code>/api/products/{id}</code>
+          <span>UpdateProductCommand</span>
+          <span class="auth-admin">Admin</span>
+        </div>
+        <div class="endpoint-row">
+          <span class="method delete">DELETE</span>
+          <code>/api/products/{id}</code>
+          <span>DeleteProductCommand</span>
+          <span class="auth-admin">Admin</span>
+        </div>
+        <div class="endpoint-row">
+          <span class="method get">GET</span>
+          <code>/api/categories</code>
+          <span>CategoryRepository</span>
+          <span class="auth-public">Public</span>
+        </div>
+        <div class="endpoint-row">
+          <span class="method post">POST</span>
+          <code>/api/auth/register</code>
+          <span>AuthController</span>
+          <span class="auth-public">Public</span>
+        </div>
+        <div class="endpoint-row">
+          <span class="method post">POST</span>
+          <code>/api/auth/login</code>
+          <span>AuthController → JWT</span>
+          <span class="auth-public">Public</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VG FEATURES ── -->
+  <section id="vg">
+    <div class="container">
+      <div class="section-label">VG Level</div>
+      <h2>Advanced Features</h2>
+      <p class="section-desc">All VG requirements implemented on top of the G-level foundation.</p>
+
+      <div class="vg-grid">
+        <div class="vg-card">
+          <div class="vg-icon">🗺️</div>
+          <h3>AutoMapper + DTOs</h3>
+          <p>Domain entities never exposed directly. <code>MappingProfile</code> maps <code>Product → ProductDto</code>. API contract stays stable even if domain evolves.</p>
+          <div class="vg-file">Mapping/MappingProfile.cs · DTOs/ProductDto.cs</div>
+        </div>
+        <div class="vg-card">
+          <div class="vg-icon">🔗</div>
+          <h3>MediatR Pipeline Behaviors</h3>
+          <p><strong>ValidationBehavior</strong> runs FluentValidation before every handler. <strong>LoggingBehavior</strong> times execution and warns on slow queries (&gt;500ms).</p>
+          <div class="vg-file">Behaviors/ValidationBehavior.cs · LoggingBehavior.cs</div>
+        </div>
+        <div class="vg-card">
+          <div class="vg-icon">🔐</div>
+          <h3>JWT Authentication</h3>
+          <p>Register/Login endpoints issue signed JWT tokens with 8-hour expiry. Tokens are validated on every protected request via ASP.NET Core middleware.</p>
+          <div class="vg-file">Controllers/AuthController.cs · Program.cs (JWT setup)</div>
+        </div>
+        <div class="vg-card">
+          <div class="vg-icon">👑</div>
+          <h3>Role-Based Access Control</h3>
+          <p>Two roles: <strong>Admin</strong> (full CRUD) and <strong>User</strong> (read-only). Role is embedded in the JWT claim and enforced via <code>[Authorize(Policy = "AdminOnly")]</code>.</p>
+          <div class="vg-file">Enums/UserRole.cs · Controllers/ (Authorize attributes)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CQRS FLOW ── -->
+  <section id="cqrs">
+    <div class="container">
+      <div class="section-label">How It Works</div>
+      <h2>CQRS Request Flow</h2>
+      <p class="section-desc">Every API call flows through a clean, predictable pipeline.</p>
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-label">HTTP Request</div>
+          <div class="flow-sub">Controller receives POST /api/products</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-label">MediatR Send</div>
+          <div class="flow-sub">CreateProductCommand dispatched</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-label">LoggingBehavior</div>
+          <div class="flow-sub">Logs request + starts timer</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-label">ValidationBehavior</div>
+          <div class="flow-sub">FluentValidation runs — 400 if invalid</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-label">Handler</div>
+          <div class="flow-sub">Creates domain entity, calls IProductRepository</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-num">6</div>
+          <div class="flow-label">AutoMapper</div>
+          <div class="flow-sub">Product → ProductDto returned</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GIT BRANCHES ── -->
+  <section id="branches">
+    <div class="container">
+      <div class="section-label">Version Control</div>
+      <h2>Git Branch Strategy</h2>
+      <p class="section-desc">4 feature branches — one per architectural layer. Each merged to <code>main</code> with multiple commits.</p>
+
+      <div class="branches-grid">
+        <div class="branch-card">
+          <div class="branch-icon">🌿</div>
+          <code class="branch-name">feature/Domain</code>
+          <p>Entities (Product, Category, User, Order), IRepository interface, UserRole enum — the pure core.</p>
+          <div class="branch-files">Product.cs · Category.cs · User.cs · Order.cs · IRepository.cs · UserRole.cs</div>
+        </div>
+        <div class="branch-card">
+          <div class="branch-icon">🌿</div>
+          <code class="branch-name">feature/Application</code>
+          <p>CQRS Commands, Queries, Handlers, Validators, Pipeline Behaviors, DTOs, AutoMapper profile.</p>
+          <div class="branch-files">Commands/ · Queries/ · Handlers/ · Behaviors/ · Validators/ · DTOs/ · Mapping/</div>
+        </div>
+        <div class="branch-card">
+          <div class="branch-icon">🌿</div>
+          <code class="branch-name">feature/Infrastructure</code>
+          <p>EF Core DbContext with full model config, seed data, and Repository implementations.</p>
+          <div class="branch-files">AppDbContext.cs · Repository.cs · ProductRepository.cs · CategoryRepository.cs</div>
+        </div>
+        <div class="branch-card">
+          <div class="branch-icon">🌿</div>
+          <code class="branch-name">feature/API</code>
+          <p>ASP.NET Core controllers, JWT auth, RBAC policies, Swagger, DI wiring in Program.cs.</p>
+          <div class="branch-files">ProductsController.cs · CategoriesController.cs · AuthController.cs · Program.cs</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">bankai<span class="accent">.se</span></div>
+      <p>Clean Architecture · ASP.NET Core · VG Level Assignment 2026</p>
+      <p class="footer-sub">Built following Clean Architecture principles by Robert C. Martin (Uncle Bob)</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
