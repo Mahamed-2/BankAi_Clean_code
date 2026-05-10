@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Bankai.API/Bankai.API.csproj" />
+  <Project Path="Bankai.Application/Bankai.Application.csproj" />
+  <Project Path="Bankai.Domain/Bankai.Domain.csproj" />
+  <Project Path="Bankai.Infrastructure/Bankai.Infrastructure.csproj" />
+</Solution>

@@ -119,14 +119,16 @@ using (var scope = app.Services.CreateScope())
     db.Database.EnsureCreated();
 }
 
-if (app.Environment.IsDevelopment())
+// ── Swagger always enabled (for demo / assignment showcase) ──
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bankai API v1"));
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bankai API v1");
+    c.RoutePrefix = "swagger";
+    c.DocumentTitle = "Bankai.se — Clean Architecture API";
+});
 
 app.UseCors();
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

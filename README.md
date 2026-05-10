@@ -50,8 +50,8 @@ website/               ← bankai.se showcase frontend
 
 ```bash
 cd Bankai.API
-dotnet run
-# Swagger UI: https://localhost:5001/swagger
+dotnet run --urls "http://localhost:5050"
+# Swagger UI: http://localhost:5050/swagger
 ```
 
 ## API Endpoints
@@ -66,3 +66,51 @@ dotnet run
 | GET | `/api/categories` | Public |
 | POST | `/api/auth/register` | Public |
 | POST | `/api/auth/login` | Public |
+
+## 🧪 How to Test the Full Flow in Swagger
+
+1. **Register** — `POST /api/Auth/register`
+
+   ```json
+   {
+     "email": "admin@bankai.se",
+     "password": "Admin123!",
+     "role": 1
+   }
+   ```
+
+2. **Login** — `POST /api/Auth/login`
+
+   ```json
+   {
+     "email": "admin@bankai.se",
+     "password": "Admin123!"
+   }
+   ```
+
+   Copy the `token` value from the response.
+
+3. **Authorize** — Click the 🔒 **Authorize** button (top right of Swagger UI)
+   and enter:
+
+   ```
+   Bearer <paste_your_token_here>
+   ```
+
+4. **Create a Product** — `POST /api/Products` *(Admin-protected)*
+
+   ```json
+   {
+     "name": "Katana",
+     "description": "Forged in the soul of Bankai",
+     "price": 299.99,
+     "stock": 10,
+     "categoryId": 1
+   }
+   ```
+
+5. **Get all Products** — `GET /api/Products` *(Public)*
+
+   Returns the list of all products mapped via AutoMapper → `ProductDto`.
+
+> **Role values:** `0` = User (read-only), `1` = Admin (full CRUD access)
