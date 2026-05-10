@@ -1,6 +1,6 @@
 # Bankai.se — Clean Architecture ASP.NET Core Web API
 
-> 万解 (Bankai) — *Final Release* · VG Level Assignment · 2026
+> (Bankai) VG Level Assignment · 2026/05/10
 
 A production-grade **ASP.NET Core Web API** demonstrating Clean Architecture principles with full CRUD, CQRS, MediatR, JWT authentication, and Role-Based Access Control.
 
