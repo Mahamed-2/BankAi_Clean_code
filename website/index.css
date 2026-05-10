@@ -70,6 +70,9 @@ body {
 .nav-links {
   list-style: none; display: flex; gap: 28px;
 }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
 .nav-links a {
   color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500;
   transition: color 0.2s;
@@ -205,12 +208,15 @@ h2 {
 /* ── ARCHITECTURE DIAGRAM ── */
 .arch-diagram {
   display: flex; justify-content: center; margin: 0 auto 64px;
+  max-width: 100%; overflow-x: auto; padding: 20px 0;
+  scrollbar-width: none;
 }
+.arch-diagram::-webkit-scrollbar { display: none; }
 
 .arch-ring {
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%; position: relative;
-  flex-direction: column;
+  flex-direction: column; flex-shrink: 0;
 }
 .ring-infra  { width: 480px; height: 480px; background: rgba(5,150,105,0.15); border: 2px solid rgba(5,150,105,0.4); }
 .ring-api    { width: 360px; height: 360px; background: rgba(217,119,6,0.12); border: 2px solid rgba(217,119,6,0.4); }
@@ -265,8 +271,13 @@ h2 {
 .layer-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; }
 
 .layer-files { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-.layer-files li { font-size: 0.8rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 6px; }
-.file-icon { font-size: 0.9rem; }
+.layer-files li { 
+  font-size: 0.8rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; 
+  display: flex; align-items: flex-start; gap: 8px; 
+  word-break: break-word; overflow-wrap: anywhere;
+  min-width: 0; width: 100%;
+}
+.file-icon { font-size: 0.9rem; margin-top: 2px; flex-shrink: 0; }
 
 .layer-deps {
   font-size: 0.75rem; color: var(--text-muted); background: rgba(255,255,255,0.04);
@@ -274,11 +285,14 @@ h2 {
 }
 
 /* ── ENDPOINTS TABLE ── */
-.endpoints-table { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.endpoints-table { 
+  border: 1px solid var(--border); border-radius: var(--radius-lg); 
+  overflow-x: auto; background: var(--bg);
+}
 .endpoint-row {
-  display: grid; grid-template-columns: 90px 1fr 1fr 100px;
+  display: grid; grid-template-columns: 80px 200px 1fr 100px;
   align-items: center; gap: 16px; padding: 14px 20px;
-  border-bottom: 1px solid var(--border); transition: background 0.15s;
+  border-bottom: 1px solid var(--border); min-width: 700px;
 }
 .endpoint-row:last-child { border-bottom: none; }
 .endpoint-row:hover:not(.header-row) { background: rgba(139,92,246,0.05); }
@@ -311,9 +325,9 @@ h2 {
 }
 .vg-icon { font-size: 2.5rem; margin-bottom: 16px; }
 .vg-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
-.vg-card p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
+.vg-card p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; overflow-wrap: anywhere; }
 .vg-card code { background: rgba(139,92,246,0.15); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: var(--glow); }
-.vg-file { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; border-top: 1px solid var(--border); padding-top: 12px; }
+.vg-file { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; border-top: 1px solid var(--border); padding-top: 12px; word-break: break-all; overflow-wrap: anywhere; }
 
 /* ── CQRS FLOW ── */
 .flow-diagram {
@@ -353,8 +367,8 @@ h2 {
   background: rgba(139,92,246,0.12); border: 1px solid var(--border);
   padding: 6px 12px; border-radius: 8px; margin-bottom: 12px;
 }
-.branch-card p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
-.branch-files { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+.branch-card p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.branch-files { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; word-break: break-all; overflow-wrap: anywhere; }
 
 /* ── FOOTER ── */
 footer {
@@ -365,18 +379,37 @@ footer {
 footer p { color: var(--text-muted); font-size: 0.875rem; }
 .footer-sub { margin-top: 6px; font-size: 0.8rem; }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .endpoint-row { grid-template-columns: 70px 1fr; }
+  section { padding: 60px 0; }
+  .layers-grid, .vg-grid, .branches-grid { grid-template-columns: 1fr; }
+  .principle-card, .vg-card, .branch-card { padding: 24px; }
+  .header-content h1 { font-size: 2.8rem; }
+  
+  .endpoint-row { grid-template-columns: 80px 1fr; min-width: auto; }
   .endpoint-row span:nth-child(3),
   .endpoint-row div:nth-child(3) { display: none; }
-  .flow-diagram { flex-direction: column; }
-  .flow-arrow { transform: rotate(90deg); text-align: center; }
-  .ring-infra { width: 300px; height: 300px; }
-  .ring-api   { width: 225px; height: 225px; }
-  .ring-app   { width: 155px; height: 155px; }
-  .ring-domain{ width: 95px;  height: 95px; }
-  .ring-label { font-size: 0.6rem; }
-  .ring-label-center { font-size: 0.7rem; }
+  .flow-diagram { flex-direction: column; align-items: center; }
+  .flow-arrow { transform: rotate(90deg); margin: 10px 0; }
+  
+  /* Diagram Responsiveness */
+  .arch-diagram { 
+    transform: scale(0.8); 
+    transform-origin: center top;
+    margin-top: -20px; 
+    margin-bottom: -60px;
+    height: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content h1 { font-size: 2.2rem; }
+  .btn { width: 100%; text-align: center; }
+  .hero-buttons { flex-direction: column; }
+  .arch-diagram { 
+    transform: scale(0.6); 
+    margin-top: -100px; 
+    margin-bottom: -150px;
+    height: 300px;
+  }
+  h2 { font-size: 1.8rem; }
 }
