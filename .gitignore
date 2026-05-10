@@ -1,0 +1,4 @@
+bankai.db
+*.user
+bin/
+obj/
