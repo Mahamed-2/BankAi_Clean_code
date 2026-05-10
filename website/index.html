@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bankai.se — Clean Architecture API</title>
-  <meta name="description" content="Bankai.se — A production-grade ASP.NET Core Web API built with Clean Architecture, CQRS, MediatR, JWT and RBAC." />
+  <meta name="description"
+    content="Bankai.se — A production-grade ASP.NET Core Web API built with Clean Architecture, CQRS, MediatR, JWT and RBAC." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="index.css" />
 </head>
+
 <body>
 
   <!-- ── NAVBAR ── -->
@@ -114,7 +119,8 @@
     <div class="container">
       <div class="section-label">Project Structure</div>
       <h2>The 4 Layers</h2>
-      <p class="section-desc">Each layer is a separate C# project — enforcing clean dependency rules at compile time.</p>
+      <p class="section-desc">Each layer is a separate C# project — enforcing clean dependency rules at compile time.
+      </p>
 
       <div class="layers-grid">
 
@@ -203,7 +209,10 @@
 
       <div class="endpoints-table">
         <div class="endpoint-row header-row">
-          <div>Method</div><div>Endpoint</div><div>Handler</div><div>Auth</div>
+          <div>Method</div>
+          <div>Endpoint</div>
+          <div>Handler</div>
+          <div>Auth</div>
         </div>
         <div class="endpoint-row">
           <span class="method get">GET</span>
@@ -268,25 +277,29 @@
         <div class="vg-card">
           <div class="vg-icon">🗺️</div>
           <h3>AutoMapper + DTOs</h3>
-          <p>Domain entities never exposed directly. <code>MappingProfile</code> maps <code>Product → ProductDto</code>. API contract stays stable even if domain evolves.</p>
+          <p>Domain entities never exposed directly. <code>MappingProfile</code> maps <code>Product → ProductDto</code>.
+            API contract stays stable even if domain evolves.</p>
           <div class="vg-file">Mapping/MappingProfile.cs · DTOs/ProductDto.cs</div>
         </div>
         <div class="vg-card">
           <div class="vg-icon">🔗</div>
           <h3>MediatR Pipeline Behaviors</h3>
-          <p><strong>ValidationBehavior</strong> runs FluentValidation before every handler. <strong>LoggingBehavior</strong> times execution and warns on slow queries (&gt;500ms).</p>
+          <p><strong>ValidationBehavior</strong> runs FluentValidation before every handler.
+            <strong>LoggingBehavior</strong> times execution and warns on slow queries (&gt;500ms).</p>
           <div class="vg-file">Behaviors/ValidationBehavior.cs · LoggingBehavior.cs</div>
         </div>
         <div class="vg-card">
           <div class="vg-icon">🔐</div>
           <h3>JWT Authentication</h3>
-          <p>Register/Login endpoints issue signed JWT tokens with 8-hour expiry. Tokens are validated on every protected request via ASP.NET Core middleware.</p>
+          <p>Register/Login endpoints issue signed JWT tokens with 8-hour expiry. Tokens are validated on every
+            protected request via ASP.NET Core middleware.</p>
           <div class="vg-file">Controllers/AuthController.cs · Program.cs (JWT setup)</div>
         </div>
         <div class="vg-card">
           <div class="vg-icon">👑</div>
           <h3>Role-Based Access Control</h3>
-          <p>Two roles: <strong>Admin</strong> (full CRUD) and <strong>User</strong> (read-only). Role is embedded in the JWT claim and enforced via <code>[Authorize(Policy = "AdminOnly")]</code>.</p>
+          <p>Two roles: <strong>Admin</strong> (full CRUD) and <strong>User</strong> (read-only). Role is embedded in
+            the JWT claim and enforced via <code>[Authorize(Policy = "AdminOnly")]</code>.</p>
           <div class="vg-file">Enums/UserRole.cs · Controllers/ (Authorize attributes)</div>
         </div>
       </div>
@@ -344,7 +357,8 @@
     <div class="container">
       <div class="section-label">Version Control</div>
       <h2>Git Branch Strategy</h2>
-      <p class="section-desc">4 feature branches — one per architectural layer. Each merged to <code>main</code> with multiple commits.</p>
+      <p class="section-desc">4 feature branches — one per architectural layer. Each merged to <code>main</code> with
+        multiple commits.</p>
 
       <div class="branches-grid">
         <div class="branch-card">
@@ -369,7 +383,8 @@
           <div class="branch-icon">🌿</div>
           <code class="branch-name">feature/API</code>
           <p>ASP.NET Core controllers, JWT auth, RBAC policies, Swagger, DI wiring in Program.cs.</p>
-          <div class="branch-files">ProductsController.cs · CategoriesController.cs · AuthController.cs · Program.cs</div>
+          <div class="branch-files">ProductsController.cs · CategoriesController.cs · AuthController.cs · Program.cs
+          </div>
         </div>
       </div>
     </div>
@@ -380,10 +395,11 @@
     <div class="footer-inner">
       <div class="footer-logo">bankai<span class="accent">.se</span></div>
       <p>Clean Architecture · ASP.NET Core · VG Level Assignment 2026</p>
-      <p class="footer-sub">Built following Clean Architecture principles by Robert C. Martin (Uncle Bob)</p>
+      <p class="footer-sub">Built following Clean Architecture principles</p>
     </div>
   </footer>
 
   <script src="main.js"></script>
 </body>
+
 </html>
